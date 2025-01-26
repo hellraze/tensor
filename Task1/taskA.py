@@ -7,7 +7,7 @@ def get_response(url):
         data = response.json()
         return data
     else:
-        raise Exception(f'Bad request {response.status_code}')
+        raise Exception(f'Received status code: {response.status_code}')
 
 
 if __name__ == "__main__":

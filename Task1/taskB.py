@@ -15,7 +15,7 @@ class Response:
             data = response.json()
             self.set_time_and_time_zone(data)
         else:
-            raise Exception(f'Bad request {response.status_code}')
+            raise Exception(f'Received status code: {response.status_code}')
 
     def __str__(self):
         return f'{self.time} {self.time_zone}'
