@@ -70,7 +70,7 @@ def make_json(folder_path, version):
 
     data = {
         'name': 'hello world',
-        'version': str(version),
+        'version': version,
         'files': files_for_json
     }
 
@@ -87,8 +87,9 @@ def make_json(folder_path, version):
 
 
 if __name__ == "__main__":
-    url = 'https://github.com/paulbouwer/hello-kubernetes'
-    target_dir = "src/app"
+    url = input("Введите адрес репозитория: ")
+
+    target_dir = input("Введите относительный путь внутри репозитория до исходного кода: ")
     local_dir = clone_repo(url)
 
     today = datetime.date.today()
@@ -96,7 +97,8 @@ if __name__ == "__main__":
 
     rm_except_target(local_dir, target_dir)
 
-    make_json(local_dir + '/' + target_dir, 123)
+    version = input("Введите версию будущего продукта: ")
+    make_json(local_dir + '/' + target_dir, version)
 
     archive_name = target_dir.split("/")[-1] + today_str
     output_dir = '../repos/archives'
