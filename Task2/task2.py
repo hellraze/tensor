@@ -2,6 +2,8 @@ import git
 import os
 import shutil
 import datetime
+import glob
+import json
 from git import exc
 
 def clone_repo(repo_url):
@@ -48,6 +50,41 @@ def archive_folder(folder_path, archive_name, output_dir):
     print(time, end=": ")
     print(f"Архив {full_archive_name}.zip успешно создан.")
 
+def make_json(folder_path, version):
+    file_extensions = ['*.py', '*.js', '*.sh']
+    files = []
+
+    for extension in file_extensions:
+        search_pattern = os.path.join(folder_path, extension)
+        files.extend(glob.glob(search_pattern))
+
+    for file in files:
+        time = datetime.datetime.now()
+        print(time, end=": ")
+        print("Найден файл:", file)
+
+    files_for_json = []
+
+    for file in files:
+        files_for_json.append(file.split('\\')[1])
+
+    data = {
+        'name': 'hello world',
+        'version': str(version),
+        'files': files_for_json
+    }
+
+    json_file = os.path.join(folder_path, 'version.json')
+    json_string = json.dumps(data, indent=4)
+    with open(json_file, 'w') as f:
+        f.write(json_string)
+
+    time = datetime.datetime.now()
+    print(time, end=": ")
+    print(f'Файл {json_file} успешно создан и сохранен.')
+
+
+
 
 if __name__ == "__main__":
     url = 'https://github.com/paulbouwer/hello-kubernetes'
@@ -55,16 +92,17 @@ if __name__ == "__main__":
     local_dir = clone_repo(url)
 
     today = datetime.date.today()
-
     today_str = today.strftime('%d%m%Y')
-
-    archive_name = target_dir.split("/")[-1] + today_str
 
     rm_except_target(local_dir, target_dir)
 
+    make_json(local_dir + '/' + target_dir, 123)
+
+    archive_name = target_dir.split("/")[-1] + today_str
     output_dir = '../repos/archives'
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     archive_folder(local_dir, archive_name, output_dir)
+
