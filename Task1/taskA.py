@@ -1,7 +1,6 @@
 import requests
 
 def get_response(url):
-    # request url and return json dict if success or status code
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()

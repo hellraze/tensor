@@ -11,7 +11,6 @@ class Response:
 
     def get_response(self):
         self.set_start_time()
-        # requesting url and return json dict if success or status code
         response = requests.get(self.url)
         if response.status_code == 200:
             self.set_server_time(response)

@@ -14,7 +14,6 @@ class Response:
 
     def get_response(self):
         self.set_start_time()
-        # requesting url and return json dict if success or status code
         response = requests.get(self.url)
         if response.status_code == 200:
             self.set_server_time(response)
@@ -53,10 +52,12 @@ if __name__ == "__main__":
 
     for i in range(5):
         response = Response(current_url)
-
         response.get_response()
         delta = response.get_delta()
-        deltas.append(delta)
+        deltas.append(delta.total_seconds())
 
-    for j in deltas:
-        print(j)
+    if deltas:
+        average_delta = sum(deltas) / len(deltas)
+        print(f"Среднее арифметическое дельт: {average_delta} секунд")
+    else:
+        print("Массив deltas пустой")

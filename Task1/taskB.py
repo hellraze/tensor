@@ -9,7 +9,6 @@ class Response:
         self.url = url
 
     def get_response(self):
-        # requesting url and return json dict if success or status code
         response = requests.get(self.url)
         if response.status_code == 200:
             data = response.json()
