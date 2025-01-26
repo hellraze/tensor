@@ -9,6 +9,9 @@ class Response:
         self.delta = None
         self.url = url
 
+    def get_delta(self):
+        return self.delta
+
     def get_response(self):
         self.set_start_time()
         # requesting url and return json dict if success or status code
@@ -39,13 +42,21 @@ class Response:
         hours = int(differ_hours[3:])
         self.time_zone = hours
 
-
     def set_delta(self):
         self.delta = self.start_time - self.server_time
 
 
 if __name__ == "__main__":
     current_url = "https://yandex.com/time/sync.json?geo=213"
-    response = Response(current_url)
-    response.get_response()
-    print("Дельта:", response.delta)
+
+    deltas = []
+
+    for i in range(5):
+        response = Response(current_url)
+
+        response.get_response()
+        delta = response.get_delta()
+        deltas.append(delta)
+
+    for j in deltas:
+        print(j)
