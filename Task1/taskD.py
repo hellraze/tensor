@@ -30,7 +30,7 @@ class Response:
         self._server_time = datetime.strptime(data, date_format).replace(tzinfo=timezone.utc)
 
     def set_delta(self):
-        self._delta = self._start_time - self._server_time
+        self._delta = abs(self._start_time - self._server_time)
 
 
 if __name__ == "__main__":
