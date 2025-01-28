@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 class Response:
     def __init__(self, url):
