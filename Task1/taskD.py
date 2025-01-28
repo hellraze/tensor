@@ -44,11 +44,8 @@ if __name__ == "__main__":
         delta = response.get_delta()
         deltas.append(delta.total_seconds())
 
-    # if deltas:
-    #     average_delta = sum(deltas) / len(deltas)
-    #     print(f"Среднее арифметическое дельт: {average_delta} секунд")
-    # else:
-    #     print("Массив deltas пустой")
-
-    for h in deltas:
-        print(h)
+    if deltas:
+        average_delta = sum(deltas) / len(deltas)
+        print(f"Среднее арифметическое дельт: {average_delta} секунд")
+    else:
+        print("Массив deltas пустой")
