@@ -30,7 +30,7 @@ class Response:
 
 
     def set_delta(self):
-        self._delta = abs(self._start_time - self._server_time)
+        self._delta = abs(self._server_time - self._start_time)
 
 
 if __name__ == "__main__":
